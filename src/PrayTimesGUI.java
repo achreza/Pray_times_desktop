@@ -1,6 +1,7 @@
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,6 +34,7 @@ public class PrayTimesGUI extends javax.swing.JFrame {
         initComponents();
         jLabel1.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bg.jpg")).getImage().getScaledInstance(1900, 900, Image.SCALE_SMOOTH)));
         Timer t2 = new Timer();
+        setExtendedState(MAXIMIZED_BOTH);
         t2.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -100,7 +102,7 @@ public class PrayTimesGUI extends javax.swing.JFrame {
                     panelIsya.setBackground(Color.black);
                     displayAdzan("Maghrib");
                 }
-                if (jamif.getText().equals(prayerTimes.get(5))) {
+                if (jamif.getText().equals(prayerTimes.get(6))) {
                     panelSubuh.setBackground(Color.black);
                     panelDuhur.setBackground(Color.black);
                     panelAsyar.setBackground(Color.black);
@@ -158,6 +160,7 @@ public class PrayTimesGUI extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1730, 20, -1, 40));
 
+        menitif.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         menitif.setForeground(new java.awt.Color(255, 255, 255));
         menitif.setText("jLabel1");
         getContentPane().add(menitif, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
@@ -166,14 +169,17 @@ public class PrayTimesGUI extends javax.swing.JFrame {
         countdown.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(countdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, 710, 100));
 
+        jamif.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jamif.setForeground(new java.awt.Color(255, 255, 255));
         jamif.setText("jLabel1");
         getContentPane().add(jamif, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
 
+        jamBerjalan.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jamBerjalan.setForeground(new java.awt.Color(255, 255, 255));
         jamBerjalan.setText("jLabel2");
         getContentPane().add(jamBerjalan, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
+        waktuBerjalan.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         waktuBerjalan.setForeground(new java.awt.Color(255, 255, 255));
         waktuBerjalan.setText("jLabel1");
         getContentPane().add(waktuBerjalan, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, -1));
