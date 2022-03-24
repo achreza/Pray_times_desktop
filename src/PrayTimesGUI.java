@@ -1,5 +1,6 @@
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
@@ -29,21 +30,54 @@ public class PrayTimesGUI extends javax.swing.JFrame {
     double timezone = 7;
     int menitIqomah = 1;
     int detikIqomah = 59;
-
+    
+    
+    public PrayTimesGUI(String path){
+        
+    
+    }
     public PrayTimesGUI() {
         initComponents();
-        jLabel1.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bg.jpg")).getImage().getScaledInstance(1900, 900, Image.SCALE_SMOOTH)));
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int) Math.round(screenSize.getWidth());
+        int height = (int) Math.round(screenSize.getHeight());
+        jLabel1.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bg1.png")).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
         Timer t2 = new Timer();
         setExtendedState(MAXIMIZED_BOTH);
         t2.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                waktuBerjalan.setText(new SimpleDateFormat("EEEE dd-MM-yyyy").format(new java.util.Date()));
+                String winggris = new SimpleDateFormat("EEEE").format(new java.util.Date());
+                String windo = "";
+                switch (winggris) {
+                    case "Sunday":
+                        waktuBerjalan.setText("Ahad");
+                        break;
+                    case "Monday":
+                        waktuBerjalan.setText("Senin");
+                        break;
+                    case "Tuesday":
+                        waktuBerjalan.setText("Selasa");
+                        break;
+                    case "Wednesday":
+                        waktuBerjalan.setText("Rabu");
+                        break;
+                    case "Thursday":
+                        waktuBerjalan.setText("Kamis");
+                        break;
+                    case "Friday":
+                        waktuBerjalan.setText("Jum'at");
+                        break;
+                    case "Saturday":
+                        waktuBerjalan.setText("Sabtu");
+                        break;
+
+                }
                 jamBerjalan.setText(new SimpleDateFormat("HH:mm:ss").format(new java.util.Date()));
-                jamif.setText(new SimpleDateFormat("HH:mm").format(new java.util.Date()));
-                menitif.setText(new SimpleDateFormat("mm").format(new java.util.Date()));
-                int menitmin2 = Integer.parseInt(new SimpleDateFormat("mm").format(new java.util.Date())) - 2;
+                jamif.setText(new SimpleDateFormat("d MMMMM y").format(new java.util.Date()));
                 
+               
+                int menitmin2 = Integer.parseInt(new SimpleDateFormat("mm").format(new java.util.Date())) - 2;
 
                 PrayTime prayers = new PrayTime();
 
@@ -63,50 +97,32 @@ public class PrayTimesGUI extends javax.swing.JFrame {
                 ArrayList<String> prayerNames = prayers.getTimeNames();
 
                 subuh.setText(prayerTimes.get(0));
+                syuruq.setText(prayerTimes.get(1));
                 dzuhur.setText(prayerTimes.get(2));
                 asyar.setText(prayerTimes.get(3));
                 maghrib.setText(prayerTimes.get(5));
                 isya.setText(prayerTimes.get(6));
 //                countDownAdzan();
-                
 
                 if (jamif.getText().equals(prayerTimes.get(0))) {
                     panelSubuh.setBackground(Color.red);
-                    panelDuhur.setBackground(Color.black);
-                    panelAsyar.setBackground(Color.black);
-                    panelMaghrib.setBackground(Color.black);
-                    panelIsya.setBackground(Color.black);
                     displayAdzan("Shubuh");
                 }
                 if (jamif.getText().equals(prayerTimes.get(2))) {
-                    panelSubuh.setBackground(Color.black);
+                    
                     panelDuhur.setBackground(Color.red);
-                    panelAsyar.setBackground(Color.black);
-                    panelMaghrib.setBackground(Color.black);
-                    panelIsya.setBackground(Color.black);
                     displayAdzan("Dzuhur");
                 }
                 if (jamif.getText().equals(prayerTimes.get(3))) {
-                    panelSubuh.setBackground(Color.black);
-                    panelDuhur.setBackground(Color.black);
+                    
                     panelAsyar.setBackground(Color.red);
-                    panelMaghrib.setBackground(Color.black);
-                    panelIsya.setBackground(Color.black);
                     displayAdzan("Asyar");
                 }
                 if (jamif.getText().equals(prayerTimes.get(5))) {
-                    panelSubuh.setBackground(Color.black);
-                    panelDuhur.setBackground(Color.black);
-                    panelAsyar.setBackground(Color.black);
                     panelMaghrib.setBackground(Color.red);
-                    panelIsya.setBackground(Color.black);
                     displayAdzan("Maghrib");
                 }
                 if (jamif.getText().equals(prayerTimes.get(6))) {
-                    panelSubuh.setBackground(Color.black);
-                    panelDuhur.setBackground(Color.black);
-                    panelAsyar.setBackground(Color.black);
-                    panelMaghrib.setBackground(Color.black);
                     panelIsya.setBackground(Color.red);
                     displayAdzan("Isya");
                 }
@@ -126,26 +142,22 @@ public class PrayTimesGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        menitif = new javax.swing.JLabel();
         countdown = new javax.swing.JLabel();
         jamif = new javax.swing.JLabel();
         jamBerjalan = new javax.swing.JLabel();
         waktuBerjalan = new javax.swing.JLabel();
-        panelSubuh = new javax.swing.JPanel();
-        subuh = new javax.swing.JLabel();
-        subuh2 = new javax.swing.JLabel();
-        panelIsya = new javax.swing.JPanel();
-        isya = new javax.swing.JLabel();
-        subuh3 = new javax.swing.JLabel();
+        panelSyuruq = new javax.swing.JPanel();
+        syuruq = new javax.swing.JLabel();
         panelMaghrib = new javax.swing.JPanel();
         maghrib = new javax.swing.JLabel();
-        subuh5 = new javax.swing.JLabel();
+        panelSubuh = new javax.swing.JPanel();
+        subuh = new javax.swing.JLabel();
+        panelIsya = new javax.swing.JPanel();
+        isya = new javax.swing.JLabel();
         panelAsyar = new javax.swing.JPanel();
         asyar = new javax.swing.JLabel();
-        subuh1 = new javax.swing.JLabel();
         panelDuhur = new javax.swing.JPanel();
         dzuhur = new javax.swing.JLabel();
-        subuh4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -158,190 +170,84 @@ public class PrayTimesGUI extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1730, 20, -1, 40));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1750, 40, -1, 40));
 
-        menitif.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        menitif.setForeground(new java.awt.Color(255, 255, 255));
-        menitif.setText("jLabel1");
-        getContentPane().add(menitif, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
+        countdown.setFont(new java.awt.Font("Tahoma", 2, 48)); // NOI18N
+        countdown.setForeground(new java.awt.Color(255, 0, 0));
+        countdown.setText("countdown");
+        getContentPane().add(countdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 950, 710, 100));
 
-        countdown.setFont(new java.awt.Font("Tahoma", 2, 36)); // NOI18N
-        countdown.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(countdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, 710, 100));
-
-        jamif.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        jamif.setForeground(new java.awt.Color(255, 255, 255));
+        jamif.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
         jamif.setText("jLabel1");
-        getContentPane().add(jamif, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
+        getContentPane().add(jamif, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, -1, -1));
 
-        jamBerjalan.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        jamBerjalan.setForeground(new java.awt.Color(255, 255, 255));
+        jamBerjalan.setFont(new java.awt.Font("Tahoma", 1, 60)); // NOI18N
         jamBerjalan.setText("jLabel2");
-        getContentPane().add(jamBerjalan, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
+        getContentPane().add(jamBerjalan, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, -1, -1));
 
-        waktuBerjalan.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        waktuBerjalan.setForeground(new java.awt.Color(255, 255, 255));
+        waktuBerjalan.setFont(new java.awt.Font("Yu Gothic UI", 1, 48)); // NOI18N
         waktuBerjalan.setText("jLabel1");
-        getContentPane().add(waktuBerjalan, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, -1));
+        getContentPane().add(waktuBerjalan, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, -1, -1));
 
-        panelSubuh.setBackground(new java.awt.Color(0, 0, 0));
+        panelSyuruq.setBackground(new java.awt.Color(251, 250, 241));
+        panelSyuruq.setForeground(new java.awt.Color(251, 250, 241));
+        panelSyuruq.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        subuh.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        subuh.setForeground(new java.awt.Color(255, 255, 255));
-        subuh.setText("jLabel1");
+        syuruq.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        syuruq.setText("jLabel1");
+        panelSyuruq.add(syuruq, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, 70));
 
-        subuh2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        subuh2.setForeground(new java.awt.Color(255, 255, 255));
-        subuh2.setText("Subuh");
+        getContentPane().add(panelSyuruq, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 440, 340, 80));
 
-        javax.swing.GroupLayout panelSubuhLayout = new javax.swing.GroupLayout(panelSubuh);
-        panelSubuh.setLayout(panelSubuhLayout);
-        panelSubuhLayout.setHorizontalGroup(
-            panelSubuhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSubuhLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelSubuhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(subuh2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(subuh))
-                .addContainerGap(36, Short.MAX_VALUE))
-        );
-        panelSubuhLayout.setVerticalGroup(
-            panelSubuhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSubuhLayout.createSequentialGroup()
-                .addComponent(subuh2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(subuh, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        panelMaghrib.setBackground(new java.awt.Color(251, 250, 241));
+        panelMaghrib.setForeground(new java.awt.Color(251, 250, 241));
+        panelMaghrib.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        getContentPane().add(panelSubuh, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 610, -1, -1));
-
-        panelIsya.setBackground(new java.awt.Color(0, 0, 0));
-
-        isya.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        isya.setForeground(new java.awt.Color(255, 255, 255));
-        isya.setText("jLabel1");
-
-        subuh3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        subuh3.setForeground(new java.awt.Color(255, 255, 255));
-        subuh3.setText("Isya'");
-
-        javax.swing.GroupLayout panelIsyaLayout = new javax.swing.GroupLayout(panelIsya);
-        panelIsya.setLayout(panelIsyaLayout);
-        panelIsyaLayout.setHorizontalGroup(
-            panelIsyaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelIsyaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelIsyaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(isya)
-                    .addComponent(subuh3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        panelIsyaLayout.setVerticalGroup(
-            panelIsyaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelIsyaLayout.createSequentialGroup()
-                .addComponent(subuh3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(isya, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        getContentPane().add(panelIsya, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 610, -1, -1));
-
-        panelMaghrib.setBackground(new java.awt.Color(0, 0, 0));
-
-        maghrib.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        maghrib.setForeground(new java.awt.Color(255, 255, 255));
+        maghrib.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         maghrib.setText("jLabel1");
+        panelMaghrib.add(maghrib, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, -1, 70));
 
-        subuh5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        subuh5.setForeground(new java.awt.Color(255, 255, 255));
-        subuh5.setText("Maghrib");
+        getContentPane().add(panelMaghrib, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 730, 340, 80));
 
-        javax.swing.GroupLayout panelMaghribLayout = new javax.swing.GroupLayout(panelMaghrib);
-        panelMaghrib.setLayout(panelMaghribLayout);
-        panelMaghribLayout.setHorizontalGroup(
-            panelMaghribLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMaghribLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelMaghribLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(maghrib)
-                    .addComponent(subuh5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        panelMaghribLayout.setVerticalGroup(
-            panelMaghribLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMaghribLayout.createSequentialGroup()
-                .addComponent(subuh5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(maghrib, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        panelSubuh.setBackground(new java.awt.Color(251, 250, 241));
+        panelSubuh.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        panelSubuh.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        getContentPane().add(panelMaghrib, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 610, -1, -1));
+        subuh.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        subuh.setText("04.00");
+        panelSubuh.add(subuh, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, 60));
 
-        panelAsyar.setBackground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(panelSubuh, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, 350, 70));
 
-        asyar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        asyar.setForeground(new java.awt.Color(255, 255, 255));
+        panelIsya.setBackground(new java.awt.Color(251, 250, 241));
+        panelIsya.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        isya.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        isya.setText("jLabel1");
+        panelIsya.add(isya, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
+
+        getContentPane().add(panelIsya, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 830, 360, 80));
+
+        panelAsyar.setBackground(new java.awt.Color(251, 250, 241));
+        panelAsyar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        asyar.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         asyar.setText("jLabel1");
+        panelAsyar.add(asyar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, -1, 60));
 
-        subuh1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        subuh1.setForeground(new java.awt.Color(255, 255, 255));
-        subuh1.setText("Asyar");
+        getContentPane().add(panelAsyar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 640, 380, 70));
 
-        javax.swing.GroupLayout panelAsyarLayout = new javax.swing.GroupLayout(panelAsyar);
-        panelAsyar.setLayout(panelAsyarLayout);
-        panelAsyarLayout.setHorizontalGroup(
-            panelAsyarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAsyarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelAsyarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(asyar)
-                    .addComponent(subuh1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        panelAsyarLayout.setVerticalGroup(
-            panelAsyarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAsyarLayout.createSequentialGroup()
-                .addComponent(subuh1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(asyar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        panelDuhur.setBackground(new java.awt.Color(251, 250, 241));
+        panelDuhur.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        getContentPane().add(panelAsyar, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 610, -1, -1));
-
-        panelDuhur.setBackground(new java.awt.Color(0, 0, 0));
-
-        dzuhur.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        dzuhur.setForeground(new java.awt.Color(255, 255, 255));
+        dzuhur.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         dzuhur.setText("jLabel1");
+        panelDuhur.add(dzuhur, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, -1, 80));
 
-        subuh4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        subuh4.setForeground(new java.awt.Color(255, 255, 255));
-        subuh4.setText("Dzuhur");
+        getContentPane().add(panelDuhur, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 540, 350, 70));
 
-        javax.swing.GroupLayout panelDuhurLayout = new javax.swing.GroupLayout(panelDuhur);
-        panelDuhur.setLayout(panelDuhurLayout);
-        panelDuhurLayout.setHorizontalGroup(
-            panelDuhurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDuhurLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelDuhurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dzuhur)
-                    .addComponent(subuh4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        panelDuhurLayout.setVerticalGroup(
-            panelDuhurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDuhurLayout.createSequentialGroup()
-                .addComponent(subuh4, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(dzuhur, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        getContentPane().add(panelDuhur, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 610, -1, -1));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1850, 910));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bg1.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -360, 2930, 1780));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -350,18 +256,18 @@ public class PrayTimesGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         Setting set = new Setting();
         set.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    void setIqomah(int menit,int detik){
+    void setIqomah(int menit, int detik) {
         this.menitIqomah = menit;
         this.detikIqomah = detik;
     }
-    
+
     void countDownAdzan() {
+        String menitif = new SimpleDateFormat("mm").format(new java.util.Date());
         if (menitif.equals(29)) {
             try {
                 for (int i = 120; i >= 0; i--) {
@@ -379,19 +285,19 @@ public class PrayTimesGUI extends javax.swing.JFrame {
 
     void countDownIqomah() {
 //        if (menitif.equals("38")) {
-            try {
-                for (int menit = menitIqomah; menit >= 0; menit--) {
-                    for (int detik = detikIqomah; detik >= 0; detik--) {
-                        Thread.sleep(1000);
-                        countdown.setText("Waktu Iqomah Kurang : " + menit + " Menit " + detik + " Detik ");
-                        if (detik == 0 && menit == 0) {
-                            countdown.setVisible(false);
-                        }
+        try {
+            for (int menit = menitIqomah; menit >= 0; menit--) {
+                for (int detik = detikIqomah; detik >= 0; detik--) {
+                    Thread.sleep(1000);
+                    countdown.setText("Waktu Iqomah Kurang : " + menit + " Menit " + detik + " Detik ");
+                    if (detik == 0 && menit == 0) {
+                        countdown.setVisible(false);
                     }
                 }
-
-            } catch (InterruptedException e) {
             }
+
+        } catch (InterruptedException e) {
+        }
 //        }
 
     }
@@ -453,18 +359,14 @@ public class PrayTimesGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jamBerjalan;
     private javax.swing.JLabel jamif;
     private javax.swing.JLabel maghrib;
-    private javax.swing.JLabel menitif;
     private javax.swing.JPanel panelAsyar;
     private javax.swing.JPanel panelDuhur;
     private javax.swing.JPanel panelIsya;
     private javax.swing.JPanel panelMaghrib;
     private javax.swing.JPanel panelSubuh;
+    private javax.swing.JPanel panelSyuruq;
     private javax.swing.JLabel subuh;
-    private javax.swing.JLabel subuh1;
-    private javax.swing.JLabel subuh2;
-    private javax.swing.JLabel subuh3;
-    private javax.swing.JLabel subuh4;
-    private javax.swing.JLabel subuh5;
+    private javax.swing.JLabel syuruq;
     private javax.swing.JLabel waktuBerjalan;
     // End of variables declaration//GEN-END:variables
 }
