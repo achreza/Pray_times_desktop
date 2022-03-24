@@ -98,6 +98,7 @@ public class SettingImage extends javax.swing.JFrame {
                 // memberi alamat image
                 File imageFile = imageFileChooser.getSelectedFile();
                 kumpulan_gambar[jumlah_gambar] = imageFileChooser.getSelectedFile();
+                jumlah_gambar++;
                 gambarPindah = imageFile;
                 try {
                     Image images = ImageIO.read(imageFile);
@@ -126,7 +127,7 @@ public class SettingImage extends javax.swing.JFrame {
 
             // memberi alamat image
             File imageFile = gambarPindah;
-            pindah.setGambar(imageFile);
+            pindah.setGambar(imageFile,kumpulan_gambar);
             pindah.setVisible(true);
             this.dispose();
 

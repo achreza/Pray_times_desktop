@@ -4,12 +4,15 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -35,6 +38,9 @@ public class PrayTimesGUI extends javax.swing.JFrame {
     
     String  crudImageAbsolutePath = null;
        String     crudImageName = null;
+       
+       File[] namaFile = new File[3];
+       int indexGambar;
     
     
     public PrayTimesGUI(String path){
@@ -52,6 +58,7 @@ public class PrayTimesGUI extends javax.swing.JFrame {
         t2.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+                
                 String winggris = new SimpleDateFormat("EEEE").format(new java.util.Date());
                 String windo = "";
                 switch (winggris) {
@@ -135,6 +142,14 @@ public class PrayTimesGUI extends javax.swing.JFrame {
         }, 0, 1000);
 
         // Test Prayer times here
+        Timer t3 = new Timer();
+        setExtendedState(MAXIMIZED_BOTH);
+        t3.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                displayGambar(namaFile[indexGambar]);
+            }
+        }, 0, 10000);//1000 sama dengan 1 detik
     }
 
     /**
@@ -146,6 +161,7 @@ public class PrayTimesGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         tempatFoto = new javax.swing.JLabel();
         countdown = new javax.swing.JLabel();
@@ -170,13 +186,21 @@ public class PrayTimesGUI extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1580, 770));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButton2.setText("GANTI GAMBAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1780, 70, -1, 40));
+
         jButton1.setText("SETTINGS");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1750, 40, -1, 40));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1810, 20, -1, 40));
 
         tempatFoto.setBackground(new java.awt.Color(251, 250, 241));
         tempatFoto.setOpaque(true);
@@ -268,6 +292,12 @@ public class PrayTimesGUI extends javax.swing.JFrame {
         set.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        SettingImage s = new SettingImage();
+        s.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -312,21 +342,36 @@ public class PrayTimesGUI extends javax.swing.JFrame {
 
     }
     
-    void setGambar(File imageFile){
+    void setGambar(File imageFile,File[] kumpulan_gambar){
         try {
-                Image images = ImageIO.read(imageFile);
-                crudImageAbsolutePath = imageFile.getAbsolutePath();
+            for (int i = 0; i < 3; i++) {
+                namaFile[i] = kumpulan_gambar[i];
+                System.out.println(namaFile[i]);
+            }
+ 
+            } catch (Exception e) {
+            }
+    }
+    
+    void displayGambar(File imageFile){
+        
+        
+        try {
+            Image images = ImageIO.read(imageFile);
+            crudImageAbsolutePath = imageFile.getAbsolutePath();
             crudImageName = imageFile.getName();
-            
-            
-//            //menampilkan image di label
             ImageIcon imageIcon = new ImageIcon(images);
             tempatFoto.setIcon(imageIcon);
 //            //resize Image to Fit JLabel;
-            Image imageResize = imageIcon.getImage().getScaledInstance(tempatFoto.getWidth(), tempatFoto.getHeight(), Image.SCALE_SMOOTH);
-            tempatFoto.setIcon(new ImageIcon(imageResize));
-            } catch (Exception e) {
-            }
+Image imageResize = imageIcon.getImage().getScaledInstance(tempatFoto.getWidth(), tempatFoto.getHeight(), Image.SCALE_SMOOTH);
+tempatFoto.setIcon(new ImageIcon(imageResize));
+indexGambar++;
+        } catch (IOException ex) {
+            Logger.getLogger(PrayTimesGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (indexGambar == 3) {
+            indexGambar = 0;
+        }
     }
 
     public void displayAdzan(String namaWaktu) {
@@ -382,6 +427,7 @@ public class PrayTimesGUI extends javax.swing.JFrame {
     private javax.swing.JLabel dzuhur;
     private javax.swing.JLabel isya;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jamBerjalan;
     private javax.swing.JLabel jamif;
