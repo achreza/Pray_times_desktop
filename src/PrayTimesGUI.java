@@ -3,12 +3,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /*
@@ -30,6 +32,9 @@ public class PrayTimesGUI extends javax.swing.JFrame {
     double timezone = 7;
     int menitIqomah = 1;
     int detikIqomah = 59;
+    
+    String  crudImageAbsolutePath = null;
+       String     crudImageName = null;
     
     
     public PrayTimesGUI(String path){
@@ -142,6 +147,7 @@ public class PrayTimesGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        tempatFoto = new javax.swing.JLabel();
         countdown = new javax.swing.JLabel();
         jamif = new javax.swing.JLabel();
         jamBerjalan = new javax.swing.JLabel();
@@ -171,6 +177,10 @@ public class PrayTimesGUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1750, 40, -1, 40));
+
+        tempatFoto.setBackground(new java.awt.Color(251, 250, 241));
+        tempatFoto.setOpaque(true);
+        getContentPane().add(tempatFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 180, 1240, 720));
 
         countdown.setFont(new java.awt.Font("Tahoma", 2, 48)); // NOI18N
         countdown.setForeground(new java.awt.Color(255, 0, 0));
@@ -301,6 +311,23 @@ public class PrayTimesGUI extends javax.swing.JFrame {
 //        }
 
     }
+    
+    void setGambar(File imageFile){
+        try {
+                Image images = ImageIO.read(imageFile);
+                crudImageAbsolutePath = imageFile.getAbsolutePath();
+            crudImageName = imageFile.getName();
+            
+            
+//            //menampilkan image di label
+            ImageIcon imageIcon = new ImageIcon(images);
+            tempatFoto.setIcon(imageIcon);
+//            //resize Image to Fit JLabel;
+            Image imageResize = imageIcon.getImage().getScaledInstance(tempatFoto.getWidth(), tempatFoto.getHeight(), Image.SCALE_SMOOTH);
+            tempatFoto.setIcon(new ImageIcon(imageResize));
+            } catch (Exception e) {
+            }
+    }
 
     public void displayAdzan(String namaWaktu) {
         Adzan display = new Adzan(namaWaktu);
@@ -367,6 +394,7 @@ public class PrayTimesGUI extends javax.swing.JFrame {
     private javax.swing.JPanel panelSyuruq;
     private javax.swing.JLabel subuh;
     private javax.swing.JLabel syuruq;
+    private javax.swing.JLabel tempatFoto;
     private javax.swing.JLabel waktuBerjalan;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,7 +12,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author LENOVO
@@ -22,12 +21,16 @@ public class SettingImage extends javax.swing.JFrame {
     /**
      * Creates new form SettingImage
      */
-     String  crudImageAbsolutePath = null;
-       String     crudImageName = null;
+    String crudImageAbsolutePath = null;
+    String crudImageName = null;
+    File gambarPindah;
+    int jumlah_gambar;
+    File[] kumpulan_gambar = new File[3];
+
     public SettingImage() {
         initComponents();
-        setLocation((Toolkit.getDefaultToolkit().getScreenSize().width-getWidth())/2,
-                (Toolkit.getDefaultToolkit().getScreenSize().height-getHeight())/2);
+        setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - getWidth()) / 2,
+                (Toolkit.getDefaultToolkit().getScreenSize().height - getHeight()) / 2);
     }
 
     /**
@@ -81,43 +84,55 @@ public class SettingImage extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-         try{
-           String currentDirectoryPath = "C:\\Users\\LENOVO\\Pictures";
-        JFileChooser imageFileChooser = new JFileChooser(currentDirectoryPath);
-        imageFileChooser.setDialogTitle("Choose Image");
-        
-        //selanjutnya, memilih salah satu gambar masi baru ngatur broswer
-        FileNameExtensionFilter imageFNEF = new FileNameExtensionFilter ("IMAGES","png","jpeg","jpg");
-        imageFileChooser.setFileFilter(imageFNEF);  
-        int imageChooser = imageFileChooser.showOpenDialog(null);
-        if(imageChooser == JFileChooser.APPROVE_OPTION){
-            
-            // memberi alamat image
-            File imageFile = imageFileChooser.getSelectedFile();
-            try {
-                Image images = ImageIO.read(imageFile);
-                crudImageAbsolutePath = imageFile.getAbsolutePath();
-            crudImageName = imageFile.getName();
-            
-            
+        try {
+            String currentDirectoryPath = "C:\\Users\\LENOVO\\Pictures";
+            JFileChooser imageFileChooser = new JFileChooser(currentDirectoryPath);
+            imageFileChooser.setDialogTitle("Choose Image");
+
+            //selanjutnya, memilih salah satu gambar masi baru ngatur broswer
+            FileNameExtensionFilter imageFNEF = new FileNameExtensionFilter("IMAGES", "png", "jpeg", "jpg");
+            imageFileChooser.setFileFilter(imageFNEF);
+            int imageChooser = imageFileChooser.showOpenDialog(null);
+            if (imageChooser == JFileChooser.APPROVE_OPTION) {
+
+                // memberi alamat image
+                File imageFile = imageFileChooser.getSelectedFile();
+                kumpulan_gambar[jumlah_gambar] = imageFileChooser.getSelectedFile();
+                gambarPindah = imageFile;
+                try {
+                    Image images = ImageIO.read(imageFile);
+                    crudImageAbsolutePath = imageFile.getAbsolutePath();
+                    crudImageName = imageFile.getName();
+
 //            //menampilkan image di label
-            ImageIcon imageIcon = new ImageIcon(images);
-            tempatFoto.setIcon(imageIcon);
+                    ImageIcon imageIcon = new ImageIcon(images);
+                    tempatFoto.setIcon(imageIcon);
 //            //resize Image to Fit JLabel;
-            Image imageResize = imageIcon.getImage().getScaledInstance(tempatFoto.getWidth(), tempatFoto.getHeight(), Image.SCALE_SMOOTH);
-            tempatFoto.setIcon(new ImageIcon(imageResize));
-            } catch (Exception e) {
+                    Image imageResize = imageIcon.getImage().getScaledInstance(tempatFoto.getWidth(), tempatFoto.getHeight(), Image.SCALE_SMOOTH);
+                    tempatFoto.setIcon(new ImageIcon(imageResize));
+                } catch (Exception e) {
+                }
+
             }
-            
+        } catch (Exception e) {
+
         }
-      }
-      catch(Exception e){
-          
-      }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        PrayTimesGUI pindah = new PrayTimesGUI();
+        try {
+
+            // memberi alamat image
+            File imageFile = gambarPindah;
+            pindah.setGambar(imageFile);
+            pindah.setVisible(true);
+            this.dispose();
+
+        } catch (Exception e) {
+
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
