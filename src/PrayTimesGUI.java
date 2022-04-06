@@ -3,23 +3,20 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
-<<<<<<< HEAD
+
 import java.io.File;
 import java.io.IOException;
-=======
->>>>>>> parent of e30399e (gantiGambar)
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-<<<<<<< HEAD
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-=======
->>>>>>> parent of e30399e (gantiGambar)
 import javax.swing.ImageIcon;
 
 /*
@@ -31,6 +28,8 @@ import javax.swing.ImageIcon;
  *
  * @author 62852
  */
+
+
 public class PrayTimesGUI extends javax.swing.JFrame {
 
     /**
@@ -41,21 +40,19 @@ public class PrayTimesGUI extends javax.swing.JFrame {
     double timezone = 7;
     int menitIqomah = 1;
     int detikIqomah = 59;
-    
-<<<<<<< HEAD
-    String  crudImageAbsolutePath = null;
-       String     crudImageName = null;
-       
-       File[] namaFile = new File[3];
-       int indexGambar;
-    
-=======
->>>>>>> parent of e30399e (gantiGambar)
-    
-    public PrayTimesGUI(String path){
-        
-    
+
+    String  crudImageAbsolutePath  = null;
+    String crudImageName = null;
+
+    File[] namaFile = new File[3];
+    int indexGambar;
+
+
+
+    public PrayTimesGUI(String path) {
+
     }
+
     public PrayTimesGUI() {
         initComponents();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -67,7 +64,7 @@ public class PrayTimesGUI extends javax.swing.JFrame {
         t2.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                
+
                 String winggris = new SimpleDateFormat("EEEE").format(new java.util.Date());
                 String windo = "";
                 switch (winggris) {
@@ -96,8 +93,7 @@ public class PrayTimesGUI extends javax.swing.JFrame {
                 }
                 jamBerjalan.setText(new SimpleDateFormat("HH:mm:ss").format(new java.util.Date()));
                 jamif.setText(new SimpleDateFormat("d MMMMM y").format(new java.util.Date()));
-                
-               
+
                 int menitmin2 = Integer.parseInt(new SimpleDateFormat("mm").format(new java.util.Date())) - 2;
 
                 PrayTime prayers = new PrayTime();
@@ -130,12 +126,12 @@ public class PrayTimesGUI extends javax.swing.JFrame {
                     displayAdzan("Shubuh");
                 }
                 if (jamif.getText().equals(prayerTimes.get(2))) {
-                    
+
                     panelDuhur.setBackground(Color.red);
                     displayAdzan("Dzuhur");
                 }
                 if (jamif.getText().equals(prayerTimes.get(3))) {
-                    
+
                     panelAsyar.setBackground(Color.red);
                     displayAdzan("Asyar");
                 }
@@ -345,22 +341,21 @@ public class PrayTimesGUI extends javax.swing.JFrame {
 //        }
 
     }
-<<<<<<< HEAD
-    
-    void setGambar(File imageFile,File[] kumpulan_gambar){
+    <<<<<<< HEAD
+
+    void setGambar(File imageFile, File[] kumpulan_gambar) {
         try {
             for (int i = 0; i < 3; i++) {
                 namaFile[i] = kumpulan_gambar[i];
                 System.out.println(namaFile[i]);
             }
- 
-            } catch (Exception e) {
-            }
+
+        } catch (Exception e) {
+        }
     }
-    
-    void displayGambar(File imageFile){
-        
-        
+
+    void displayGambar(File imageFile) {
+
         try {
             Image images = ImageIO.read(imageFile);
             crudImageAbsolutePath = imageFile.getAbsolutePath();
@@ -368,9 +363,9 @@ public class PrayTimesGUI extends javax.swing.JFrame {
             ImageIcon imageIcon = new ImageIcon(images);
             tempatFoto.setIcon(imageIcon);
 //            //resize Image to Fit JLabel;
-Image imageResize = imageIcon.getImage().getScaledInstance(tempatFoto.getWidth(), tempatFoto.getHeight(), Image.SCALE_SMOOTH);
-tempatFoto.setIcon(new ImageIcon(imageResize));
-indexGambar++;
+            Image imageResize = imageIcon.getImage().getScaledInstance(tempatFoto.getWidth(), tempatFoto.getHeight(), Image.SCALE_SMOOTH);
+            tempatFoto.setIcon(new ImageIcon(imageResize));
+            indexGambar++;
         } catch (IOException ex) {
             Logger.getLogger(PrayTimesGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -378,8 +373,6 @@ indexGambar++;
             indexGambar = 0;
         }
     }
-=======
->>>>>>> parent of e30399e (gantiGambar)
 
     public void displayAdzan(String namaWaktu) {
         Adzan display = new Adzan(namaWaktu);
